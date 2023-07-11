@@ -1,19 +1,19 @@
-<% @cards.group_by(&:type).each do |type, cards| %>
-  <h2 class="text-2xl font-semibold mb-4"><%= type %></h2>
 
   <div class="flex flex-wrap">
-    <% cards.each do |card| %>
+    <% @cards.each do |card| %>
+      <h2 class="text-2xl font-semibold mb-4"><%= card.status  %></h2>
       <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
         <div class="bg-white shadow-md rounded-lg p-4 mb-4">
           <h2 class="text-lg font-semibold mb-2"><%= card.title %></h2>
           <p><%= card.content %></p>
           <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
-          <a href="#" class="text-blue-500 hover:underline" onclick="showCardDetails('<%= card.title %>', '<%= card.content %>', '<%= card.type %>', '<%= card.created_at.strftime("%d/%m/%Y") %>'); return false;">Detayları Gör</a>
+          <a href="<%= card_path(card) %>" class="text-blue-500 hover:underline" onclick="showCardDetails('<%= card.title %>', '<%= card.content %>', '<%= card.created_at.strftime("%d/%m/%Y") %>'); return false;">Detayları Gör</a>
+          <a href="<%= edit_card_path(card) %>" class="text-gray-500 hover:underline ml-4">Düzenle</a>
         </div>
       </div>
     <% end %>
   </div>
-<% end %>
+
 
 <div id="card-details-modal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
   <div class="bg-white rounded-lg p-8">
@@ -24,20 +24,5 @@
     <button onclick="hideCardDetails()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Kapat</button>
   </div>
 </div>
-
-<script>
-  function showCardDetails(title, content, type, date) {
-    document.getElementById('card-details-title').textContent = title;
-    document.getElementById('card-details-content').textContent = "İçerik:\n" + content;
-    document.getElementById('card-details-type').textContent = "Türü: " + type;
-    document.getElementById('card-details-date').textContent = "Tarih: " + date;
-
-    document.getElementById('card-details-modal').classList.remove('hidden');
-  }
-
-  function hideCardDetails() {
-    document.getElementById('card-details-modal').classList.add('hidden');
-  }
-</script>
 
 <%= link_to "Kart Ekle", new_card_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>

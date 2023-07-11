@@ -4,9 +4,12 @@
 
   <%= form.label :content, "İçerik" %>
   <%= form.text_area :content, class: "block w-full rounded-lg border-gray-300 mb-4" %>
-
-  <%= form.label :type, "Tür" %>
-  <%= form.select :type, options_for_select(["Type 1", "Type 2", "Type 3"]), class: "block w-full rounded-lg border-gray-300 mb-4" %>
-
-  <%= form.submit "Ekle", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+   <div class="field">
+    <%= form.label :status %>
+    <%= form.collection_select :status, Card.statuses, :first, :first, prompt: "Kategori Seçin" %>
+  </div>
+  <%= form.submit " Kartı Ekle", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
+
+
+
