@@ -1,0 +1,11 @@
+<h2 class="text-2xl font-semibold mb-4">Kartı Düzenle</h2> 
+
+<%= form_with(model: @card, url: card_path(@card), method: :patch, class: "mb-8") do |form| %>
+  <%= form.label :title, "Başlık" %>
+  <%= form.text_field :title, class: "block w-full rounded-lg border-gray-300 mb-4" %>
+
+  <%= form.label :content, "İçerik" %>
+  <%= form.text_area :content, class: "block w-full rounded-lg border-gray-300 mb-4" %>
+
+  <%= form.submit "Kartı Kaydet", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>

@@ -1,19 +1,20 @@
+<%= notice %>
+<div class="">
+  <% @cards.each do |card| %>
+    <h2 class="text-2xl font-semibold mb-4"><%= card.status %></h2>
+    <div class=" md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+      <div class="bg-white shadow-md rounded-lg p-4 mb-4">
+        <h2 class="text-lg font-semibold mb-2"><%= card.title %></h2>
+        <p><%= card.content %></p>
+        <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
+        <%= link_to "Detayları Gör", card_path(card), class: "text-blue-500 hover:underline", onclick: "showCardDetails('#{card.title}', '#{card.content}', '#{card.created_at.strftime("%d/%m/%Y")}') ; return false;" %>
+        <%= link_to "Düzenle", edit_card_path(card), class: "text-gray-500 hover:underline ml-4" %>
+        <%= button_to "Sil", card_path(card), method: :delete, data: { confirm: "Kartı silmek istediğinizden emin misiniz?" }, class: "text-red-500 hover:underline ml-4" %>
 
-  <div class="flex flex-wrap">
-    <% @cards.each do |card| %>
-      <h2 class="text-2xl font-semibold mb-4"><%= card.status  %></h2>
-      <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
-        <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-          <h2 class="text-lg font-semibold mb-2"><%= card.title %></h2>
-          <p><%= card.content %></p>
-          <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
-          <a href="<%= card_path(card) %>" class="text-blue-500 hover:underline" onclick="showCardDetails('<%= card.title %>', '<%= card.content %>', '<%= card.created_at.strftime("%d/%m/%Y") %>'); return false;">Detayları Gör</a>
-          <a href="<%= edit_card_path(card) %>" class="text-gray-500 hover:underline ml-4">Düzenle</a>
-        </div>
       </div>
-    <% end %>
-  </div>
-
+    </div>
+  <% end %>
+</div>
 
 <div id="card-details-modal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
   <div class="bg-white rounded-lg p-8">

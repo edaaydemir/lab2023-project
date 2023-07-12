@@ -9,8 +9,7 @@ class CardsController < ApplicationController
     @card = Card.new
   end
 
-  def create
-    
+  def create 
     @card = Card.new(card_params)
 
     if @card.save
@@ -21,6 +20,23 @@ class CardsController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy 
+    @card = Card.find(params[:id])
+    @card.destroy
+    redirect_to cards_path, notice: 'Kart başarıyla silindi.'
+
+  end
+
+  def update
+    @card = Card.find(params[:id])
+  
+    if @card.update(card_params)
+      redirect_to cards_path, notice: 'Kart başarıyla güncellendi.'
+    else
+      render :edit
+    end
   end
 
   private
@@ -35,4 +51,8 @@ class CardsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to cards_path, alert: 'Kart bulunamadı.'
   end
+
+
+  
+  
 end
