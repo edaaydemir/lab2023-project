@@ -1,15 +1,35 @@
 <%= form_with(model: @card, url: cards_path, class: "mb-8") do |form| %>
-  <%= form.label :title, "Başlık" %>
-  <%= form.text_field :title, class: "block w-full rounded-lg border-gray-300 mb-4" %>
+  <%= form.label :title, "Title" %>
+  <%= form.text_field :title, class: "block rounded-lg border-gray-300 mb-4" %>
 
-  <%= form.label :content, "İçerik" %>
-  <%= form.text_area :content, class: "block w-full rounded-lg border-gray-300 mb-4" %>
-   <div class="field">
+  <%= form.label :content, "Content" %>
+  <%= form.text_area :content, class: "block rounded-lg border-gray-300 mb-4" %>
+
+  <div class="field ">
     <%= form.label :status %>
-    <%= form.collection_select :status, Card.statuses, :first, :first, prompt: "Kategori Seçin" %>
+    <%= form.collection_select :status, Card.statuses, :first, :first, prompt: "Choose a status" %>
   </div>
-  <%= form.submit " Kartı Ekle", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+
+  <div class="field">
+    <%= form.label :due_on %>
+    <%= form.select :due_on, [["No Due On", nil], ["A Specific Day", "A Specific Day"]], {}, class: "block rounded-lg border-gray-300 mb-4", onchange: "toggleDueDateField(this)" %>
+  </div>
+
+  <div class="field" id="dueDateField" style="display: none;">
+    <%= form.label :due_date, "Due Date" %>
+    <%= form.date_field :due_date, class: "block rounded-lg border-gray-300 mb-4" %>
+  </div>
+
+  <%= form.submit " Add a card", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
 
+<!--
+<script>
+    function toggleDueDateField(select) {
+    var dueDateField = document.getElementById("dueDateField");
+    dueDateField.style.display = (select.value === "A Specific Day") ? "block" : "none";
+  }
+</script>
 
-
+--
+ü

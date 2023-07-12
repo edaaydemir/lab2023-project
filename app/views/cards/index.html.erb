@@ -1,29 +1,37 @@
-<%= notice %>
-<div class="">
-  <% @cards.each do |card| %>
-    <h2 class="text-2xl font-semibold mb-4"><%= card.status %></h2>
-    <div class=" md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
-      <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-        <h2 class="text-lg font-semibold mb-2"><%= card.title %></h2>
-        <p><%= card.content %></p>
-        <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
-        <%= link_to "Detayları Gör", card_path(card), class: "text-blue-500 hover:underline", onclick: "showCardDetails('#{card.title}', '#{card.content}', '#{card.created_at.strftime("%d/%m/%Y")}') ; return false;" %>
-        <%= link_to "Düzenle", edit_card_path(card), class: "text-gray-500 hover:underline ml-4" %>
-        <%= button_to "Sil", card_path(card), method: :delete, data: { confirm: "Kartı silmek istediğinizden emin misiniz?" }, class: "text-red-500 hover:underline ml-4" %>
+<nav class="bg-blue-500 mt-2 rounded">
+  <div class=" mx-auto px-4 py-2 flex items-center justify-between">
+    <%= link_to "Card Table", root_path, class: "text-white font-bold text-lg" %>
+    <ul class="flex space-x-4">
+      <li><%= link_to "Home", class: "text-white hover:underline" %></li>
+      <li><%= link_to "About us", class: "text-white hover:underline" %></li>
+      <li><%= link_to "Contact us", class: "text-white hover:underline" %></li>
+    </ul>
+  </div>
+</nav>
 
-      </div>
+<div class="container mx-auto mt-5"> 
+  <div class="mb-8">
+    <%= link_to "Add a card", new_card_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+
+  <% @cards.group_by(&:status).each do |status, cards| %>
+    <h2><%= status %>  </h2>
+    <div class="flex space-x-5">
+      <% cards.each do |card| %>
+        <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 bg-white shadow-md rounded-lg mb-4">
+          <h2 class="text-lg font-semibold mb-2"><%= card.title %></h2>
+          <div class="content-container flex-grow overflow-hidden">
+            <p class="content truncate"><%= card.content %></p>
+          </div>
+          <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
+          <%= link_to "Details", card_path(card), class: "text-blue-500 hover:underline", onclick: "showCardDetails('#{card.title}', '#{card.content}', '#{card.created_at.strftime("%d/%m/%Y")}') ; return false;" %>
+          <%= link_to "Edit", edit_card_path(card), class: "text-gray-500 hover:underline ml-4" %>
+          <%= button_to "Delete", card_path(card), method: :delete, data: { turbo_confirm: "Kartı silmek istediğinizden emin misiniz?", turbo_method: :delete } %>
+          <% if card.due_on.present? %>
+            <p class="mt-2">Due On: <%= card.due_on %></p>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
-
-<div id="card-details-modal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
-  <div class="bg-white rounded-lg p-8">
-    <h2 id="card-details-title" class="text-lg font-semibold mb-2"></h2>
-    <p id="card-details-content" class="whitespace-pre-line"></p>
-    <p id="card-details-type" class="text-sm text-gray-500"></p>
-    <p id="card-details-date" class="text-sm text-gray-500"></p>
-    <button onclick="hideCardDetails()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Kapat</button>
-  </div>
-</div>
-
-<%= link_to "Kart Ekle", new_card_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
