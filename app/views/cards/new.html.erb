@@ -5,9 +5,14 @@
   <%= form.label :content, "Content" %>
   <%= form.text_area :content, class: "block rounded-lg border-gray-300 mb-4" %>
 
-  <div class="field ">
+  <div class="field">
     <%= form.label :status %>
-    <%= form.collection_select :status, Card.statuses, :first, :first, prompt: "Choose a status" %>
+    <%= form.collection_select :status, Card.statuses, :first, :first, { prompt: "Choose a status" }, { class: "block rounded-lg border-gray-300 mb-4" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "Choose a user" }, { class: "block rounded-lg border-gray-300 mb-4" } %>
   </div>
 
   <div class="field">
@@ -22,14 +27,3 @@
 
   <%= form.submit " Add a card", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
-
-<!--
-<script>
-    function toggleDueDateField(select) {
-    var dueDateField = document.getElementById("dueDateField");
-    dueDateField.style.display = (select.value === "A Specific Day") ? "block" : "none";
-  }
-</script>
-
---
-ü

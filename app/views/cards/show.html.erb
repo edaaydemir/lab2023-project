@@ -2,4 +2,15 @@
   <h2 class="text-lg font-semibold mb-2"><%= @card.title %></h2>
   <p><%= @card.content %></p>
   <p class="text-sm text-gray-500"><%= @card.created_at.strftime("%d/%m/%Y") %></p>
+   <br>
+
+  <h3>Comments</h3>
+  <% @card.comments.each do |comment| %>
+    <p><strong><%= comment.user_name %>:</strong> <%= comment.content %></p>
+  <% end %>
+
+  <%= form_with(model: [@card, Comment.new]) do |form| %>
+    <%= form.text_area :content, placeholder: "Add your comment..." %>
+    <%= form.submit "Add a comment." %>
+  <% end %>
 </div>

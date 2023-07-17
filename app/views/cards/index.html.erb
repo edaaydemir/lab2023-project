@@ -1,10 +1,15 @@
 <nav class="bg-blue-500 mt-2 rounded">
-  <div class=" mx-auto px-4 py-2 flex items-center justify-between">
+  <div class="mx-auto px-4 py-2 flex items-center justify-between">
     <%= link_to "Card Table", root_path, class: "text-white font-bold text-lg" %>
     <ul class="flex space-x-4">
-      <li><%= link_to "Home", class: "text-white hover:underline" %></li>
+      <li><%= link_to "Home",  class: "text-white hover:underline" %></li>
       <li><%= link_to "About us", class: "text-white hover:underline" %></li>
-      <li><%= link_to "Contact us", class: "text-white hover:underline" %></li>
+      <li><%= link_to "Contact us",  class: "text-white hover:underline" %></li>
+      <% if current_user %>
+        <li><%= button_to "Logout", logout_path, method: :delete, class: "text-white hover:underline" %></li>
+      <% else %>
+        <li><%= link_to "Login", login_path, class: "text-white hover:underline" %></li>
+      <% end %>
     </ul>
   </div>
 </nav>
@@ -22,7 +27,11 @@
           <h2 class="text-lg font-semibold mb-2"><%= card.title %></h2>
           <div class="content-container flex-grow overflow-hidden">
             <p class="content truncate"><%= card.content %></p>
+            <% card.card_users.each do |card_user| %>
+                 <p class="mt-2"><%= card_user.user.name %></p>
+            <% end %>
           </div>
+
           <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
           <%= link_to "Details", card_path(card), class: "text-blue-500 hover:underline", onclick: "showCardDetails('#{card.title}', '#{card.content}', '#{card.created_at.strftime("%d/%m/%Y")}') ; return false;" %>
           <%= link_to "Edit", edit_card_path(card), class: "text-gray-500 hover:underline ml-4" %>
