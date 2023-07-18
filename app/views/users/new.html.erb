@@ -13,8 +13,16 @@
     </ul>
   </div>
 </nav>  <br>
-  <h2>LOGIN</h2> <br>
-<%= form_with(url: login_path, method: :post) do |form| %>
+
+<div class="container mx-auto">
+  <h2>Register</h2> <br>
+
+  <%= form_with(model: @user, url: register_path, class: "mb-8") do |form| %>
+    <div class="mb-4">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "block rounded-lg border-gray-300" %>
+    </div>
+
     <div class="mb-4">
       <%= form.label :email %>
       <%= form.email_field :email, class: "block rounded-lg border-gray-300" %>
@@ -25,12 +33,6 @@
       <%= form.password_field :password, class: "block rounded-lg border-gray-300" %>
     </div>
 
-    <div class="mb-4">
-      <%= form.check_box :remember_me %>
-      <%= form.label :remember_me, "Remember me" %>
-    </div>
-
-    <%= form.submit "Log in", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-    
-
+    <%= form.submit "Register", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" ,   data: { turbo_confirm: "Register is successfully." } %>
   <% end %>
+</div>

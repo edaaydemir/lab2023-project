@@ -54,5 +54,4 @@ class CardsController < ApplicationController
 
 
   
-  
 end

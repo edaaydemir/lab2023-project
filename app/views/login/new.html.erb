@@ -1,4 +1,7 @@
 <div class="container mx-auto">
-  <h2>Giriş Yap</h2>
-  <%= render 'form', user: @user %>
-</div>
+
+  <%= render 'form', user: @user %> <br>
+  <%= link_to "Sign Up", register_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+
+</div> <br>
+  <%= alert %>

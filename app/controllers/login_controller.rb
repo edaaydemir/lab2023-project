@@ -11,7 +11,7 @@ class LoginController < ApplicationController
         redirect_to root_path, notice: 'Logged is succesfully!'
       else
         flash.now[:alert] = 'Invalid email or password!'
-        render :new
+        render 'new' , status: :unprocessable_entity
       end
     end
   

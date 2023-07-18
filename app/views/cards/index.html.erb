@@ -13,6 +13,7 @@
     </ul>
   </div>
 </nav>
+<%= notice %>
 
 <div class="container mx-auto mt-5"> 
   <div class="mb-8">
@@ -35,7 +36,7 @@
           <p class="text-sm text-gray-500"><%= card.created_at.strftime("%d/%m/%Y") %></p>
           <%= link_to "Details", card_path(card), class: "text-blue-500 hover:underline", onclick: "showCardDetails('#{card.title}', '#{card.content}', '#{card.created_at.strftime("%d/%m/%Y")}') ; return false;" %>
           <%= link_to "Edit", edit_card_path(card), class: "text-gray-500 hover:underline ml-4" %>
-          <%= button_to "Delete", card_path(card), method: :delete, data: { turbo_confirm: "Kartı silmek istediğinizden emin misiniz?", turbo_method: :delete } %>
+          <%= link_to "Delete", card_path(card),  class: "text-red-500 hover:underline ml-4", method: :delete, data: { turbo_confirm: "Are you sure you want to delete this card?", turbo_method: :delete } %>
           <% if card.due_on.present? %>
             <p class="mt-2">Due On: <%= card.due_on %></p>
           <% end %>
