@@ -2,6 +2,16 @@
   <h2 class="text-lg font-semibold mb-2"><%= @card.title %></h2>
   <p><%= @card.content %></p>
   <p class="text-sm text-gray-500"><%= @card.created_at.strftime("%d/%m/%Y") %></p>
+  <p>Added by: <%= @card.user.name %></p>
+  
+ <div class="field flex">
+  <p class="mt-2">Assigned to:</p>
+    <% @card.assignments.each do |card_user| %>
+      <p class="mt-2 ml-2 mr-2"><%= card_user.name %></p>
+    <% end %>
+  </div>
+
+
    <br>
 
   <h3>Comments</h3>

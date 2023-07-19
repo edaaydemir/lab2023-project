@@ -11,9 +11,16 @@
   </div>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "Choose a user" }, { class: "block rounded-lg border-gray-300 mb-4" } %>
+  <%= form.label :assignment_ids, "Assigned to" %>
+  <div class="checkbox-list">
+    <% User.all.each do |user| %>
+      <div class="checkbox-item">
+        <%= form.check_box :assignment_ids, { multiple: true, class: "form-checkbox", id: "user_#{user.id}" }, user.id, nil %>
+        <%= form.label "user_#{user.id}", user.name, class: "form-checkbox-label" %>
+      </div>
+    <% end %>
   </div>
+</div>
 
   <div class="field">
     <%= form.label :due_on %>
@@ -27,3 +34,4 @@
 
   <%= form.submit " Add a card", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
+

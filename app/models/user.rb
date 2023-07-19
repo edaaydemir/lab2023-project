@@ -1,7 +1,6 @@
 class User < ApplicationRecord
     has_many :comments
-    has_many :card_users, dependent: :destroy
-    has_many :cards, through: :card_users
+    has_many :cards
   
     has_secure_password
   

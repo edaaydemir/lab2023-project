@@ -1,11 +1,38 @@
-<h2 class="text-2xl font-semibold mb-4">Edit</h2> 
+<h2 class="text-2xl font-semibold mb-4">Edit</h2>
 
 <%= form_with(model: @card, url: card_path(@card), method: :patch, class: "mb-8") do |form| %>
   <%= form.label :title, "Title" %>
-  <%= form.text_field :title, class: "block  rounded-lg border-gray-300 mb-4" %>
+  <%= form.text_field :title, class: "block rounded-lg border-gray-300 mb-4" %>
 
   <%= form.label :content, "Content" %>
-  <%= form.text_area :content, class: "block  rounded-lg border-gray-300 mb-4" %>
+  <%= form.text_area :content, class: "block rounded-lg border-gray-300 mb-4" %>
 
-  <%= form.submit "Add a card", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.collection_select :status, Card.statuses, :first, :first, { prompt: "Choose a status" }, { class: "block rounded-lg border-gray-300 mb-4" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :assignment_ids, "Assigned to" %>
+    <div class="checkbox-list">
+      <% User.all.each do |user| %>
+        <div class="checkbox-item">
+          <%= form.check_box :assignment_ids, { multiple: true, class: "form-checkbox", id: "user_#{user.id}" }, user.id, @card.assignment_ids %>
+          <%= form.label "user_#{user.id}", user.name, class: "form-checkbox-label" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :due_on %>
+    <%= form.select :due_on, [["No Due On", nil], ["A Specific Day", "A Specific Day"]], {}, class: "block rounded-lg border-gray-300 mb-4", onchange: "toggleDueDateField(this)" %>
+  </div>
+
+  <div class="field" id="dueDateField" style="display: none;">
+    <%= form.label :due_date, "Due Date" %>
+    <%= form.date_field :due_date, class: "block rounded-lg border-gray-300 mb-4" %>
+  </div>
+
+  <%= form.submit "Update Card", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>

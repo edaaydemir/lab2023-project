@@ -14,6 +14,21 @@
 
   <body>
     <main class="container px-5">
+    <nav class="bg-blue-500 mt-2 rounded">
+  <div class="mx-auto px-4 py-2 flex items-center justify-between">
+    <%= link_to "Card Table", root_path, class: "text-white font-bold text-lg" %>
+    <ul class="flex space-x-4">
+      <li><%= link_to "Home",  class: "text-white hover:underline" %></li>
+      <li><%= link_to "About us", class: "text-white hover:underline" %></li>
+      <li><%= link_to "Contact us",  class: "text-white hover:underline" %></li>
+      <% if current_user %>
+        <li><%= button_to "Logout", logout_path, method: :delete, class: "text-white hover:underline" %></li>
+      <% else %>
+        <li><%= link_to "Login", login_path, class: "text-white hover:underline" %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav> <br>
       <%= yield %>
     </main>
   </body>
