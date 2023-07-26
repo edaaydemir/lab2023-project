@@ -1,37 +1,65 @@
-<%= form_with(model: @card, url: cards_path, class: "mb-8") do |form| %>
-  <%= form.label :title, "Title" %>
-  <%= form.text_field :title, class: "block rounded-lg border-gray-300 mb-4" %>
+<%= turbo_frame_tag "new_card_button" do %>
 
-  <%= form.label :content, "Content" %>
-  <%= form.text_area :content, class: "block rounded-lg border-gray-300 mb-4" %>
+  <div id="defaultModal"  data-controller="modal"  data-modal-target="modal"  type="text"  tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 flex items-center justify-center z-50 w-full h-screen bg-gray-800 bg-opacity-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600" >
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Add a New Card
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-action="click->modal#hide">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+          <%= form_with(model: @card, url: cards_path, class: "mb-8") do |form| %>
+            <%= form.label :title, "Title" %>
+            <%= form.text_field :title, class: "block rounded-lg border-gray-300 mb-4" %>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.collection_select :status, Card.statuses, :first, :first, { prompt: "Choose a status" }, { class: "block rounded-lg border-gray-300 mb-4" } %>
-  </div>
+            <%= form.label :content, "Content" %>
+            <%= form.text_area :content, class: "block rounded-lg border-gray-300 mb-4" %>
 
-  <div class="field">
-  <%= form.label :assignment_ids, "Assigned to" %>
-  <div class="checkbox-list">
-    <% User.all.each do |user| %>
-      <div class="checkbox-item">
-        <%= form.check_box :assignment_ids, { multiple: true, class: "form-checkbox", id: "user_#{user.id}" }, user.id, nil %>
-        <%= form.label "user_#{user.id}", user.name, class: "form-checkbox-label" %>
+            <div class="field">
+              <%= form.label :status %>
+              <%= form.collection_select :status, Card.statuses, :first, :first, { prompt: "Choose a status" }, { class: "block rounded-lg border-gray-300 mb-4" } %>
+            </div>
+
+            <div class="field">
+              <%= form.label :user_ids, "Assigned to" %>
+              <div class="checkbox-list">
+                <% User.all.each do |user| %>
+                  <div class="checkbox-item">
+                    <%= form.check_box :user_ids, { multiple: true, class: "form-checkbox", id: "user_#{user.id}" }, user.id, nil %>
+                    <%= form.label "user_#{user.id}", user.name, class: "form-checkbox-label" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="field">
+              <%= form.label :due_on %>
+              <%= form.select :due_on, [["No Due On", nil], ["A Specific Day", "A Specific Day"]], {}, class: "block rounded-lg border-gray-300 mb-4", onchange: "toggleDueDateField(this)" %>
+            </div>
+
+            <div class="field" id="dueDateField" style="display: none;">
+              <%= form.label :due_date, "Due Date" %>
+              <%= form.date_field :due_date, class: "block rounded-lg border-gray-300 mb-4" %>
+            </div>
+
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+              <%= form.submit "Save", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" , data: { action: "click->modal#hide" }  %>
+              <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" data-action="click->modal#hide">Cancel</button>
+            </div>
+
+          <% end %>
+        </div>
       </div>
-    <% end %>
-  </div>
-</div>
-
-  <div class="field">
-    <%= form.label :due_on %>
-    <%= form.select :due_on, [["No Due On", nil], ["A Specific Day", "A Specific Day"]], {}, class: "block rounded-lg border-gray-300 mb-4", onchange: "toggleDueDateField(this)" %>
+    </div>
   </div>
 
-  <div class="field" id="dueDateField" style="display: none;">
-    <%= form.label :due_date, "Due Date" %>
-    <%= form.date_field :due_date, class: "block rounded-lg border-gray-300 mb-4" %>
-  </div>
-
-  <%= form.submit " Add a card", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
-

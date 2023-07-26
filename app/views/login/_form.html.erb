@@ -1,21 +1,34 @@
-<h2 class="text-2xl font-semibold mb-4">LOGIN</h2> <br>
-<%= form_with(url: login_path, method: :post) do |form| %>
-    <div class="mb-4">
-      <%= form.label :email %>
-      <%= form.email_field :email, class: "block rounded-lg border-gray-300" %>
+<section class="bg-center bg-no-repeat bg-cover h-screen"
+    style="background-image: url('https://s24953.pcdn.co/blog/wp-content/uploads/2018/01/Working-in-an-open-office-1024x576-1024x576.png'); ">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative w-full max-w-md px-8 py-10 bg-black bg-opacity-60 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4 text-white">LOGIN</h2>
+            
+            <%= form_with(url: login_path, method: :post) do |form| %>
+            <div class="mb-4">
+                <%= form.label :email, class: "text-white" %>
+                <%= form.email_field :email,
+                    class: "block w-full rounded-lg border-gray-300 bg-transparent focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-white" %>
+            </div>
+
+            <div class="mb-4">
+                <%= form.label :password, class: "text-white" %>
+                <%= form.password_field :password,
+                    class: "block w-full rounded-lg border-gray-300 bg-transparent focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-white" %>
+            </div>
+
+            <div class="mb-4 flex items-center">
+                <%= form.check_box :remember_me, class: "form-checkbox rounded border-gray-300 bg-white focus:ring focus:ring-blue-300 focus:ring-opacity-50" %>
+                <%= form.label :remember_me, "Remember me", class: "ml-2 text-white" %>
+            </div>
+
+            <%= form.submit "Log in",
+                class: "w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+            <% end %>
+
+            <div class="mt-4 text-white">
+              Don't have an account yet?  <%= link_to "Register", register_path, class: "underline" %>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-4">
-      <%= form.label :password %>
-      <%= form.password_field :password, class: "block rounded-lg border-gray-300" %>
-    </div>
-
-    <div class="mb-4">
-      <%= form.check_box :remember_me %>
-      <%= form.label :remember_me, "Remember me" %>
-    </div>
-
-    <%= form.submit "Log in", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-    
-
-  <% end %>
+</section>

@@ -18,14 +18,24 @@ class CardsController < ApplicationController
   def create 
     @card = Card.new(card_params)
     @card.user = current_user
-
-    if @card.save
-      redirect_to cards_path, notice: 'The card was added successfully.'
-    else
-      render :new
+      
+    respond_to do |format|
+      if @card.save
+        format.turbo_stream do
+          render turbo_stream:
+           turbo_stream.prepend(
+            "#{@card.status}_cards",
+            partial: "cards/card",
+            locals: { card: @card }
+          )
+        end
+        format.html { redirect_to cards_path, notice: 'The card was added successfully.' }
+      else
+        format.html { render :new }
+      end
     end
   end
-
+ 
   def show
     @card = Card.find(params[:id])
     
@@ -44,17 +54,28 @@ class CardsController < ApplicationController
   def update
     @card = Card.find(params[:id])
   
-    if @card.update(card_params)
-      redirect_to cards_path, notice: 'The card was updated successfully.'
-    else
-      render :edit
+
+    respond_to do |format|
+      if  @card.update(card_params)
+        format.turbo_stream do
+          render turbo_stream:
+           turbo_stream.replace(
+            @card,
+            partial: "cards/card",
+            locals: { card: @card }
+          )
+        end
+        format.html { redirect_to cards_path, notice: 'The card was updated successfully.' }
+      else
+        format.html { render :edit }
+      end
     end
   end
 
   private
 
   def card_params
-    params.require(:card).permit(:title, :content, :status, assignment_ids: [])
+    params.require(:card).permit(:title, :content, :status, user_ids: [])
   end
   
 

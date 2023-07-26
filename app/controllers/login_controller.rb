@@ -1,4 +1,5 @@
 class LoginController < ApplicationController
+  layout "login_application"
     def new
         @user = User.new
     end
