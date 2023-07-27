@@ -9,7 +9,7 @@ class LoginController < ApplicationController
   
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
-        redirect_to root_path, notice: 'Logged is succesfully!'
+        redirect_to root_path, notice: 'Logging is succesfully!'
       else
         flash.now[:alert] = 'Invalid email or password!'
         render 'new' , status: :unprocessable_entity

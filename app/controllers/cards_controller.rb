@@ -37,15 +37,13 @@ class CardsController < ApplicationController
   end
  
   def show
-    @card = Card.find(params[:id])
-    
+    @card = Card.find(params[:id])   
   end
 
   def destroy 
     @card = Card.find(params[:id])
     @card.destroy
     redirect_to cards_path, notice: 'The card was deleted successfully.'
-
   end
   
   def edit
