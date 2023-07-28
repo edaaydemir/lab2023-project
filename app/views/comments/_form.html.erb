@@ -1,0 +1,4 @@
+<%= form_with(model: [card, Comment.new]) do |form| %>
+   <%= form.text_area :content, placeholder: "Add your comment..." %>
+   <%= form.submit "Add a comment", class: "bg-stone-300 hover:bg-stone-400 text-slate-500  px-4 rounded " %>
+  <% end %>

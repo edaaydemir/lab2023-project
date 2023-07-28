@@ -1,10 +1,9 @@
 class Card < ApplicationRecord
-  self.inheritance_column = :_type_disabled
-  self.inheritance_column = :my_type_column
-
   validates :title, presence: true
-  attr_accessor :title
-  attr_accessor :content
+  enum status: { "Triage": 0, "Figuring it Out": 1, "In Progress": 2, "Done": 3, "Not Now": 4 }
 
-  end
-  
+  belongs_to :user
+  has_many :comments, dependent: :destroy
+  has_many :card_users, dependent: :destroy
+  has_many :users , through: :card_users
+end

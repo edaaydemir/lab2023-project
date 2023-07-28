@@ -1,0 +1,27 @@
+<section class="bg-center bg-no-repeat bg-cover h-screen"
+    style="background-image: url('https://s24953.pcdn.co/blog/wp-content/uploads/2018/01/Working-in-an-open-office-1024x576-1024x576.png'); ">
+  <div class="flex justify-center items-center h-full">
+        <div class="relative w-full max-w-md px-8 py-10 bg-black bg-opacity-60 rounded-lg">        
+          <h2 class="text-2xl font-semibold mb-4 text-white">REGISTER</h2> <br>
+
+          <%= form_with(model: @user, url: register_path, class: "mb-8") do |form| %>
+            <div class="mb-4">
+              <%= form.label :name , class: "text-white" %>
+              <%= form.text_field :name, class: "block w-full rounded-lg border-gray-300 bg-transparent focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-white"  %>
+            </div>
+
+            <div class="mb-4">
+              <%= form.label :email , class: "text-white" %>
+              <%= form.email_field :email, class: "block w-full rounded-lg border-gray-300 bg-transparent focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-white"  %>
+            </div>
+
+            <div class="mb-4">
+              <%= form.label :password , class: "text-white" %>
+              <%= form.password_field :password, class: "block w-full rounded-lg border-gray-300 bg-transparent focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 text-white"  %>
+            </div>
+
+            <%= form.submit "Register", class: "w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" ,   data: { turbo_confirm: "Register is successfully." } %>
+                <% end %>
+          </div>
+  </div>
+</section>

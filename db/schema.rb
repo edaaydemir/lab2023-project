@@ -10,11 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_10_122914) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_13_120149) do
+  create_table "card_users", force: :cascade do |t|
+    t.integer "card_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_users_on_card_id"
+    t.index ["user_id"], name: "index_card_users_on_user_id"
+  end
+
   create_table "cards", force: :cascade do |t|
-    t.string "type"
+    t.string "title"
+    t.text "content"
+    t.integer "status"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "due_on"
+    t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "card_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_comments_on_card_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "card_users", "cards"
+  add_foreign_key "card_users", "users"
+  add_foreign_key "cards", "users"
+  add_foreign_key "comments", "cards"
+  add_foreign_key "comments", "users"
 end
