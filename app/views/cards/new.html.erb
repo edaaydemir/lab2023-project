@@ -1,5 +1,4 @@
 <%= turbo_frame_tag "new_card_button" do %>
-
   <div id="defaultModal"  data-controller="modal"  data-modal-target="modal"  type="text"  tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 flex items-center justify-center z-50 w-full h-screen bg-gray-800 bg-opacity-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -59,11 +58,9 @@
                       data-action="click->modal#hide"
                       data-turbo-frame="_top">Cancel</button>
             </div>
-
           <% end %>
         </div>
       </div>
     </div>
   </div>
-
 <% end %>
