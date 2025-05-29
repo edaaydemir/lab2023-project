@@ -1,24 +1,33 @@
-# README
+# 📝 To-Do App – LAB2023 Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple To-Do application developed using Ruby on Rails. It allows users to manage daily tasks with a minimal and intuitive interface.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 🚀 Features
 
-* System dependencies
+- ✅ Add tasks  
+- ✏️ Edit tasks  
+- ❌ Delete tasks  
+- 📌 Mark tasks as completed  
+- 🌙 Clean and user-friendly interface  
 
-* Configuration
+---
 
-* Database creation
+## ⚙️ Tech Stack
 
-* Database initialization
+- **Backend:** Ruby on Rails  
+- **Frontend:** Embedded Ruby (ERB)  
+- **Styling:** Tailwind CSS  
+- **Database:** SQLite (default)  
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## 📦 Getting Started
 
-* Deployment instructions
-
-* ...
+```bash
+git clone https://github.com/edaaydemir/lab2023-project.git
+cd lab2023-project
+bundle install
+rails db:migrate
+rails server
